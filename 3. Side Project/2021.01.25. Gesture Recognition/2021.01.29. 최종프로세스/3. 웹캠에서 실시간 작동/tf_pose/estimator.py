@@ -16,7 +16,8 @@ try:
     from tf_pose.pafprocess import pafprocess
 except ModuleNotFoundError as e:
     print(e)
-    print('you need to build c++ library for pafprocess. See : https://github.com/ildoonet/tf-pose-estimation/tree/master/tf_pose/pafprocess')
+    print(
+        'you need to build c++ library for pafprocess. See : https://github.com/ildoonet/tf-pose-estimation/tree/master/tf_pose/pafprocess')
     exit(-1)
 
 logger = logging.getLogger('TfPoseEstimator')
@@ -377,13 +378,22 @@ class TfPoseEstimator:
         npimg_q = npimg_q.astype(np.uint8)
         return npimg_q
 
+    # 이 부분 코드 수정하였음.
     @staticmethod
     def draw_humans(npimg, humans, imgcopy=False):
         if imgcopy:
             npimg = np.copy(npimg)
         image_h, image_w = npimg.shape[:2]
-        centers = {}
+
+        i = 0
+
+        detected_humans = []
+
         for human in humans:
+            i = i + 1
+            centers = {}
+            x_poses = []
+            y_poses = []
             # draw point
             for i in range(common.CocoPart.Background.value):
                 if i not in human.body_parts.keys():
@@ -392,6 +402,8 @@ class TfPoseEstimator:
                 body_part = human.body_parts[i]
                 center = (int(body_part.x * image_w + 0.5), int(body_part.y * image_h + 0.5))
                 centers[i] = center
+                x_poses.append(center[0])
+                y_poses.append(center[1])
                 cv2.circle(npimg, center, 3, common.CocoColors[i], thickness=3, lineType=8, shift=0)
 
             # draw line
@@ -402,7 +414,24 @@ class TfPoseEstimator:
                 # npimg = cv2.line(npimg, centers[pair[0]], centers[pair[1]], common.CocoColors[pair_order], 3)
                 cv2.line(npimg, centers[pair[0]], centers[pair[1]], common.CocoColors[pair_order], 3)
 
-        return npimg
+            x_min = min(x_poses)
+            x_max = max(x_poses)
+            y_min = min(y_poses)
+            y_max = max(y_poses)
+            width = x_max - x_min
+            height = y_max - y_min
+
+            x_min = round(x_min - (0.3 * width))
+            x_max = round(x_max + (0.3 * width))
+            y_min = round(y_min - (0.2 * height))
+            y_max = round(y_max + (0.2 * height))
+
+            x_min = 0 if x_min < 0 else x_min
+            y_min = 0 if y_min < 0 else y_min
+
+            detected_humans.append([x_min, y_min, x_max, y_max])
+
+        return npimg, detected_humans
 
     def _get_scaled_img(self, npimg, scale):
         get_base_scale = lambda s, w, h: max(self.target_size[0] / float(h), self.target_size[1] / float(w)) * s

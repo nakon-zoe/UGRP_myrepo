@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 하단에 작성한 index.css CSS 파일을 추가합니다 -->
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <title>Gesture Recognition</title>
+  </head>
+  <body>
+          <h3>Gesture Recognition Project</h3>
+              <video
+                width="640"
+                height="480"
+                autoplay
+                playsinline
+                muted
+                id="player"
+              ></video>
+          
+                <button class="ui primary button" id="capture">Capture</button>
+                <button class="ui button" id="stop">Stop</button>
+             
+              <div class="ui sub header">Result</div>
+              <div class="description">
+              
+    <script>
+        // video tag의 DOM element를 player로 지정합니다.
+        var player = document.getElementById("player");
+
+        var captureButton = document.getElementById("capture");
+        var stopButton = document.getElementById("stop");
+
+        // 웹캠 사용권한이 승인되는 경우 스트리밍 영상을 player의 재생대상으로 지정
+        var handleSuccess = function (stream) {
+        player.srcObject = stream;
+        };
+
+        navigator.mediaDevices.getUserMedia({ video: true }).then(handleSuccess);
+        // 현재 사용중인 브라우저 객체(navigator)의 mediaDevices 인터페이스를
+        // 이용하여 사용자의 미디어 입력장치 사용권한을 받습니다.
+
+        stopButton.addEventListener("click", function () {
+            stream = player.srcObject;
+            tracks = stream.getTracks();
+            tracks.forEach(function (track) {
+                track.stop();
+            });
+            player.srcObject = null;
+            });
+            captureButton.addEventListener("click", async function () {
+            net = await mobilenet.load();
+            console.log("Successfully loaded model");
+
+            const webcam = await tf.data.webcam(player, {
+                resizeWidth: 224,
+                resizeHeight: 224,
+            });
+
+            const img = await webcam.capture();
+            const result = await net.classify(img);
+
+            document.getElementById("console").innerText = `
+                prediction: ${result[0].className}\n
+                probability: ${result[0].probability}
+            `;
+
+            img.dispose();
+            });
+
+    </script>
+  </body>
+</html>
