@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "515069495535",
+    "firebase_url": "https://gesturerecognition-5ec44-default-rtdb.firebaseio.com",
+    "project_id": "gesturerecognition-5ec44",
+    "storage_bucket": "gesturerecognition-5ec44.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:515069495535:android:611929a2d3a14ec488731a",
+        "android_client_info": {
+          "package_name": "example.firebase_realtimedatabase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "515069495535-mfl0vqs3vjpkgm5tl9hlerk94iko134n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBOOnt5YIVZa0fsnRjeSwxwpZ4YYqcvA8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "515069495535-mfl0vqs3vjpkgm5tl9hlerk94iko134n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
