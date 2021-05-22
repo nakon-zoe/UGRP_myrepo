@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "26541749218",
+    "firebase_url": "https://emergency-detection-2336a-default-rtdb.firebaseio.com",
+    "project_id": "emergency-detection-2336a",
+    "storage_bucket": "emergency-detection-2336a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:26541749218:android:134c3552f9baf880437fbb",
+        "android_client_info": {
+          "package_name": "com.ugrp.emergencydetection"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "26541749218-3r8a5qc4u6qors3ps1ti3ride8qa2vsi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfvithfpcGYBOHLAxNe7AcMBloWrnEFbU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "26541749218-3r8a5qc4u6qors3ps1ti3ride8qa2vsi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
